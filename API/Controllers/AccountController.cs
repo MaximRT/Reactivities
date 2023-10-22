@@ -45,12 +45,14 @@ namespace API.Controllers
         {
             if (await _userManager.Users.AnyAsync(x => x.UserName == registerDto.Username))
             {
-                return BadRequest("Данное имя пользователя занято");
+                 ModelState.AddModelError("username", "Данное имя пользователя недоступно");
+                return ValidationProblem();
             }
 
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
-                return BadRequest("Данный электронный адрес занят");
+                ModelState.AddModelError("email", "Данный электронный адрес недоступен");
+                return ValidationProblem();
             }
 
             var user = new AppUser
