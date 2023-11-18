@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { router } from "../router/Routes";
 import { store } from "../stores/store";
 import { User, UserFormValues } from "../models/user";
+import { IPhoto, Profile } from "../models/profile";
 
 const sleep = (delay: number) => {
     return new Promise((resolse) => {
@@ -13,7 +14,7 @@ const sleep = (delay: number) => {
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
-const responceBody = <T> (responce: AxiosResponse<T>) => responce.data;
+const responceBody = <T>(responce: AxiosResponse<T>) => responce.data;
 
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token;
@@ -22,13 +23,13 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(async response => {
-        await sleep(1000);
-        return response;
-}, (error:AxiosError) => {
-    const {data, status, config} = error.response as AxiosResponse;
+    await sleep(1000);
+    return response;
+}, (error: AxiosError) => {
+    const { data, status, config } = error.response as AxiosResponse;
     switch (status) {
         case 400:
-            if(config.method === 'get' && data.errors.hasOwnProperty('id')) {
+            if (config.method === 'get' && data.errors.hasOwnProperty('id')) {
                 router.navigate('/not-found');
             }
             if (data.errors) {
@@ -63,10 +64,10 @@ axios.interceptors.response.use(async response => {
 
 
 const requests = {
-    get: <T> (url: string) => axios.get<T>(url).then(responceBody),
-    post: <T> (url: string, body: {}) => axios.post<T>(url, body).then(responceBody),
-    put: <T> (url: string, body: {}) => axios.put<T>(url, body).then(responceBody),
-    del: <T> (url: string) => axios.delete<T>(url).then(responceBody),
+    get: <T>(url: string) => axios.get<T>(url).then(responceBody),
+    post: <T>(url: string, body: {}) => axios.post<T>(url, body).then(responceBody),
+    put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responceBody),
+    del: <T>(url: string) => axios.delete<T>(url).then(responceBody),
 }
 
 const Activities = {
@@ -84,9 +85,24 @@ const Account = {
     register: (user: UserFormValues) => requests.post<User>('/account/register', user)
 }
 
+const Profiles = {
+    get: (username: string) => requests.get<Profile>(`/profiles/${username}`),
+    uploadPhoto: (file: Blob) => {
+        let formData = new FormData();
+        formData.append('File', file);
+        return axios.post<IPhoto>('photos', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+    },
+    setMainPhoto: (id: string) => requests.post(`/photos/${id}/setMain`, {}),
+    deletePhoto: (id: string) => requests.del(`/photos/${id}`)
+
+}
+
 const agent = {
     Activities,
     Account,
+    Profiles
 }
 
 export default agent;
