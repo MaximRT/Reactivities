@@ -16,11 +16,6 @@ export interface Activity {
     attendees: Profile[]
   }
 
-  export class Activity implements Activity {
-    constructor(init?: ActivityFormValues) {
-      Object.assign(this, init);
-    }
-  }
 
   export class ActivityFormValues {
     id?: string = undefined;
@@ -42,6 +37,12 @@ export interface Activity {
         this.city = activity.city;
 
       }
+    }
+  }
+
+  export class Activity implements Activity {
+    constructor(init?: ActivityFormValues) {
+      Object.assign(this, init);
     }
   }
   
