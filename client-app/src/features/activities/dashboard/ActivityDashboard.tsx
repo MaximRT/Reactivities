@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid, GridColumn, Loader } from "semantic-ui-react";
 import ActivityList from "./ActivityList";
 import { useStore } from "../../../app/stores/store";
@@ -21,7 +21,7 @@ export default observer(function ActivityDashboard() {
     }
 
     useEffect(() => {
-        if (activityRegistry.size <= 1) loadActivities();
+        loadActivities();
     }, [loadActivities])
 
     return (

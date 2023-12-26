@@ -8,19 +8,19 @@ export default observer(function ActivityFilters() {
     return (
         <>
             <Menu vertical size='large' style={{ width: '100%', marginTop: 28 }}>
-                <Header icon='filter' attached color='teal' content='Filters' />
+                <Header icon='filter' attached color='teal' content='Фильтрация' />
                 <Menu.Item
-                    content='All Activities'
+                    content='Все активности'
                     active={predicate.has('all')}
                     onClick={() => setPredicate('all', 'true')}
                 />
                 <Menu.Item
-                    content="I'm going"
+                    content="Я участвую"
                     active={predicate.has('isGoing')}
                     onClick={() => setPredicate('isGoing', 'true')}
                 />
                 <Menu.Item
-                    content="I'm hosting"
+                    content="Я организую"
                     active={predicate.has('isHost')}
                     onClick={() => setPredicate('isHost', 'true')}
                 />

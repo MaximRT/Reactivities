@@ -9,14 +9,14 @@ export default observer( function LoginForm() {
     return (
         <Formik 
             initialValues={{email: '', password: '', error: null}}
-            onSubmit={(values , {setErrors}) => userStore.login(values).catch(error => 
+            onSubmit={(values , {setErrors}) => userStore.login(values).catch(() => 
                 setErrors({error: 'Неверный логин или пароль'}))}
         >
             {({handleSubmit, isSubmitting, errors}) => (
                 <Form className= 'ui form' onSubmit={handleSubmit} autoComplete= 'off'>
-                    <Header as='h2' content='Login to Reactivities' color="teal" textAlign="center" />
-                    <MyTextInput placeholder="Email" name='email'/>
-                    <MyTextInput placeholder="Password" name='password' type='password'/>
+                    <Header as='h2' content='Вход в ActivityLife' color="teal" textAlign="center" />
+                    <MyTextInput placeholder="Электронная почта" name='email'/>
+                    <MyTextInput placeholder="Пароль" name='password' type='password'/>
                     <ErrorMessage
                         name='error' render={() => 
                         <Label style={{marginBottom: 10}} basic color="red" content={errors.error}/>}

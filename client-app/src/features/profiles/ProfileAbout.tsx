@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useStore } from "../../app/stores/store";
 import { Button, Grid, Header, Tab } from "semantic-ui-react";
 import ProfileEditForm from "./ProfileEditForm";
@@ -16,12 +16,12 @@ export default observer(function ProfileAbout() {
                     <Header
                         floated='left'
                         icon='user'
-                        content={`About ${profile?.displayName}`} />
+                        content={`Информация о  ${profile?.displayName}`} />
                         {isCurrentUser && (
                         <Button
                             floated='right'
                             basic
-                            content={editMode ? 'Cancel' : 'Edit Profile'}
+                            content={editMode ? 'Закрыть' : 'Редактировать'}
                             onClick={() => setEditMode(!editMode)}
                         />)}
                 </Grid.Column>

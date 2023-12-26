@@ -40,7 +40,7 @@ export default observer(function ActivityForm() {
 
     function handleFormSubmit(activity: ActivityFormValues) {
         if (!activity.id) {
-            let newActivity = {
+            const newActivity = {
                 ...activity,
                 id: uuid()
             };
@@ -51,11 +51,11 @@ export default observer(function ActivityForm() {
         }
     }
 
-    if (loadingInitial) return <LoadingComponent content='Loading activity...' />
+    if (loadingInitial) return <LoadingComponent content='Загрузка активности...' />
 
     return (
         <Segment clearing>
-            <Header content='Activity Details' sub color='teal' />
+            <Header content='Детали активности' sub color='teal' />
             <Formik
                 validationSchema={validationSchema}
                 enableReinitialize
@@ -63,24 +63,24 @@ export default observer(function ActivityForm() {
                 onSubmit={values => handleFormSubmit(values)}>
                 {({ handleSubmit, isValid, isSubmitting, dirty }) => (
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                        <MyTextInput name='title' placeholder='Title' />
-                        <MyTextArea rows={3} placeholder='Description' name='description' />
-                        <MySelectInput options={categoryOptions} placeholder='Category' name='category' />
+                        <MyTextInput name='title' placeholder='Название' />
+                        <MyTextArea rows={3} placeholder='Описание' name='description' />
+                        <MySelectInput options={categoryOptions} placeholder='Категория' name='category' />
                         <MyDateInput
-                            placeholderText='Date'
+                            placeholderText='Дата'
                             name='date'
                             showTimeSelect
                             timeCaption='time'
                             dateFormat='MMMM d, yyyy h:mm aa'
                         />
-                        <Header content='Location Details' sub color='teal' />
-                        <MyTextInput placeholder='City' name='city' />
-                        <MyTextInput placeholder='Venue' name='venue' />
+                        <Header content='Локация' sub color='teal' />
+                        <MyTextInput placeholder='Город' name='city' />
+                        <MyTextInput placeholder='Место' name='venue' />
                         <Button
                             disabled={isSubmitting || !dirty || !isValid}
                             loading={isSubmitting} floated='right'
-                            positive type='submit' content='Submit' />
-                        <Button as={Link} to='/activities' floated='right' type='button' content='Cancel' />
+                            positive type='submit' content='Создать' />
+                        <Button as={Link} to='/activities' floated='right' type='button' content='Закрыть' />
                     </Form>
                 )}
             </Formik>

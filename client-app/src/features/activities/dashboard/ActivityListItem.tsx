@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Icon, Item, Label, Segment } from "semantic-ui-react";
 import { Activity } from "../../../app/models/activity";
 import { Link } from "react-router-dom";
@@ -24,7 +23,7 @@ export default function ActivityListItem({activity}: Props) {
                             <Item.Header as={Link} to={`/activities/${activity.id}`}>
                                 {activity.title}
                             </Item.Header>
-                            <Item.Description>Hosted by <Link to={`/profiles/${activity.hostUsername}`}>{activity.host?.displayName}</Link></Item.Description>
+                            <Item.Description>Организатор <Link to={`/profiles/${activity.hostUsername}`}>{activity.host?.displayName}</Link></Item.Description>
                             {activity.isHost && (
                                 <Item.Description>
                                     <Label basic color='orange'>
@@ -57,9 +56,9 @@ export default function ActivityListItem({activity}: Props) {
                 <Button
                     as={Link}
                     to={`/activities/${activity.id}`}
-                    color='teal'
+                    color='blue'
                     floated='right'
-                    content='View'
+                    content='Открыть'
                 />
             </Segment>
         </Segment.Group>
